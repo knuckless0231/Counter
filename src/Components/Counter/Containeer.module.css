@@ -1,0 +1,39 @@
+.containeerInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    outline: 0.1rem solid khaki;
+    margin: 50px;
+    background-color: #0097A7;
+}
+
+.count {
+    display: flex;
+    justify-content: center;
+    white-space: pre-wrap
+}
+
+.red {
+    color: red;
+}
+
+.button {
+    display: flex;
+    padding: 15px;
+    height: 30px;
+}
+
+.bt {
+    margin-left: 15px;
+}
+
+.alertText {
+    font-size: 12px;
+    color: #be0842;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
