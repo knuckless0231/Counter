@@ -84,20 +84,19 @@ export const Containeer = (props: any) => {
     }, [])
 
     return (
-        <div>
-            <div className={s.containeerInner}>
-                <div>
-                    <Counter count={count} counter={counterFunc} reset={resetFunc}
-                             max={max} min={min} alertText={alertText}/>
-                </div>
-            </div>
+        <div className={s.container}>
 
-            <div className={s.containeerInner}>
-                    <Setting setCountToLocal={setAllValuesFunc} setCount={setCount}
-                             max={max} min={min} setMin={setMin} setMax={setMax}/>
-                </div>
+                  <span className={s.spanBlock}>
+                 <Counter count={count} counter={counterFunc} reset={resetFunc}
+                          max={max} min={min} alertText={alertText}/>
+            </span>
+
+            <span className={s.spanBlock}>
+                <Setting setCountToLocal={setAllValuesFunc} setCount={setCount}
+                         max={max} min={min} setMin={setMin} setMax={setMax}/>
+            </span>
+
         </div>
-
     );
 
 }

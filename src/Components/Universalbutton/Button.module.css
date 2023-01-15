@@ -1,9 +1,10 @@
 .bt {
-    background-color: gray;
-    color: #61dafb;
-    display: flex;
-    margin-top: 50px;
-    border: 0;
+    background-color:#2ddada;
+    color:grey;
+    font-weight: bold;
+    border:none;
+    width: 50px;
+    height: 25px;
 }
 
 
