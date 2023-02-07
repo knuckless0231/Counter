@@ -1,50 +1,83 @@
 import React, {ChangeEvent} from 'react'
 import {Button} from "../Universalbutton/Button";
 import s from './settings.module.css'
+import {alertTextAC, setCountAC, setMaxAC, setMinAC} from "../redux/Counter-Reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {ReducersType} from "../redux/store";
 
-type SettingsPropsType = {
-    setCountToLocal: () => void
-    setCount: (value: number) => void
-    min: number
-    max: number
-    setMin: (value: number) => void
-    setMax: (value: number) => void
-}
 
-export const Setting = (props: SettingsPropsType) => {
+
+export const Setting = () => {
+
+    const min = useSelector<ReducersType,number>(state => state.min)
+    const max = useSelector<ReducersType,number>(state => state.max)
+
+    const dispatch = useDispatch()
+
+    //тут состояние устанавливается
+
+    let setCountToLocal = () => {
+        localStorage.setItem("count", JSON.stringify(min))
+    }
+
+    let setMinValue = () => {
+        localStorage.setItem("min", JSON.stringify(min))
+        dispatch(setMinAC(min))
+        dispatch(setCountAC(min))
+    }
+    let setMaxValue = () => {
+        localStorage.setItem("max", JSON.stringify(max))
+        dispatch(setMaxAC(max))
+    }
+
+    let setAllValuesFunc = () => {
+
+        if (min === max) {
+            dispatch(alertTextAC("value's should be not equal"))
+        } else if (min > max) {
+            dispatch(alertTextAC("max value should be bigger then min"))
+        } else if (min < 0) {
+            dispatch(alertTextAC("incorrect value"))
+        } else {
+            setMinValue()
+            setMaxValue()
+            setCountToLocal()
+            dispatch(alertTextAC(''))
+        }
+    }
 
     const setStart = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setMin(Number(e.currentTarget.value))
+        dispatch(setMinAC(Number(e.currentTarget.value)))
     }
 
     const setMax = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setMax(Number(e.currentTarget.value))
+        dispatch(setMaxAC(Number(e.currentTarget.value)))
     }
 
 
     return (
         <div className={s.settings}>
+
             <div className={s.valuesContainer}>
                 <div className={s.divValueInput}>
                     <span className={s.spanValue}>start value:</span>
                     <span>
                          <input className={s.input} type={'number'} placeholder={'Set start Value'}
-                                value={props.min} onChange={setStart}/>
+                                value={min} onChange={setStart}/>
                     </span>
                 </div>
 
-                 <div className={s.divValueInput}>
-                     <span className={s.spanValue}>end value:</span>
-                     <span>
+                <div className={s.divValueInput}>
+                    <span className={s.spanValue}>end value:</span>
+                    <span>
                          <input className={s.input} type={'number'} placeholder={'Set max Value'}
-                                value={props.max} onChange={setMax}/>
+                                value={max} onChange={setMax}/>
                     </span>
-                 </div>
+                </div>
 
-                {/*</div>*/}
             </div>
             <div className={s.btContainer}>
-                <Button name={'Set'} func={props.setCountToLocal}/>
+                <Button name={'Set'} func={setAllValuesFunc}/>
             </div>
         </div>
     )
