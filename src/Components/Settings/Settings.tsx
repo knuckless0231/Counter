@@ -47,11 +47,11 @@ export const Setting = () => {
     }
 
     const setStart = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setMinAC(Number(e.currentTarget.value)))
+        dispatch(setMinAC(parseInt(e.currentTarget.value)))
     }
 
     const setMax = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setMaxAC(Number(e.currentTarget.value)))
+        dispatch(setMaxAC(parseInt(e.currentTarget.value)))
     }
 
 

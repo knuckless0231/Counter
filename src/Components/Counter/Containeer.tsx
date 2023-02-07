@@ -39,15 +39,12 @@ export const Containeer = (props: any) => {
 
     return (
         <div className={s.container}>
-
-                  <span className={s.spanBlock}>
-                 <Counter  />
-            </span>
-
             <span className={s.spanBlock}>
-                <Setting />
+                 <Counter/>
             </span>
-
+            <span className={s.spanBlock}>
+                <Setting/>
+            </span>
         </div>
     );
 
