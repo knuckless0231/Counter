@@ -2,40 +2,25 @@ import React, {useEffect} from 'react'
 import s from './Containeer.module.css'
 import {Setting} from "../Settings/Settings";
 import {Counter} from "./Counter/Counter";
-import {useDispatch} from "react-redux";
-import {setCountAC, setMaxAC, setMinAC} from "../redux/Counter-Reducer";
+import {getCounterValueTC, getMaxCountValueTC, getStartCountValueTC} from "../redux/Counter-Reducer";
+import {useTypedDispatch} from "../redux/store";
 
 
-export const Containeer = (props: any) => {
+export const Containeer = () => {
+    const dispatch = useTypedDispatch()
 
-    const dispatch = useDispatch()
+    useEffect(() => {
+         dispatch(getStartCountValueTC())
+    }, [dispatch])
+
+    useEffect(() => {
+       dispatch(getMaxCountValueTC())
+    }, [dispatch])
 
 
     useEffect(() => {
-        let temporary = localStorage.getItem('min')
-        if (temporary) {
-            let temporaryNum = JSON.parse(temporary)
-            dispatch(setMinAC(temporaryNum))
-        }
-
-    }, [])
-
-    useEffect(() => {
-        let temporary = localStorage.getItem('max')
-        if (temporary) {
-            let temporaryNum = JSON.parse(temporary)
-            dispatch(setMaxAC(temporaryNum))
-        }
-    }, [])
-
-
-    useEffect(() => {
-        let temporary = localStorage.getItem('count')
-        if (temporary) {
-            let temporaryNum = JSON.parse(temporary)
-            dispatch(setCountAC(temporaryNum))
-        }
-    }, [])
+        dispatch(getCounterValueTC())
+    }, [dispatch])
 
     return (
         <div className={s.container}>

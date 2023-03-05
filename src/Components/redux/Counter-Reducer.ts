@@ -1,10 +1,4 @@
-
-export type InitStateType = {
-    count: number
-    alertText: string
-    min: number
-    max: number
-}
+import {Dispatch} from "redux";
 
 const initState:InitStateType = {
     count: 0,
@@ -31,7 +25,6 @@ export const counterReducer = (state:InitStateType = initState,action:CombinerTy
         default: return state
     }
 }
-
 
 
 export type CombinerTypesForCounterReducer = SetCountType | AlertTextType | SetMinType | SetMaxType
@@ -62,4 +55,58 @@ export const setMaxAC = (max:number) => {
     return {
         type:'SET-MAX',max
     }as const
+}
+
+
+
+export const getStartCountValueTC = () => (dispatch:Dispatch) => {
+
+    let temporary = localStorage.getItem('min')
+    if (temporary) {
+        let temporaryNum = JSON.parse(temporary)
+        dispatch(setMinAC(temporaryNum))
+    }
+    return temporary
+}
+
+export const getMaxCountValueTC = () => (dispatch:Dispatch) => {
+    let temporary = localStorage.getItem('max')
+    if (temporary) {
+        let temporaryNum = JSON.parse(temporary)
+        dispatch(setMaxAC(temporaryNum))
+    }
+}
+
+export const getCounterValueTC = () => (dispatch:Dispatch) => {
+    let temporary = localStorage.getItem('count')
+    if (temporary) {
+        let temporaryNum = JSON.parse(temporary)
+        dispatch(setCountAC(temporaryNum))
+    }
+}
+
+export const setCountValueTC = (value:number) => (dispatch:Dispatch) => {
+    dispatch(setCountAC(value))
+}
+
+export const setCountToLocalStorageTC = (value:number) => () => {
+    localStorage.setItem("count", JSON.stringify(value))
+}
+
+export const setMinValueToLocalStorageTC = (minValue:number) => (dispatch:Dispatch) => {
+    localStorage.setItem("min", JSON.stringify(minValue))
+    dispatch(setMinAC(minValue))
+    dispatch(setCountAC(minValue))
+}
+
+export const setMaxValueToLocalStorageTC = (maxValue:number) => (dispatch:Dispatch) => {
+    localStorage.setItem("max", JSON.stringify(maxValue))
+    dispatch(setMaxAC(maxValue))
+}
+
+export type InitStateType = {
+    count: number
+    alertText: string
+    min: number
+    max: number
 }
