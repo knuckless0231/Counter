@@ -1,27 +1,30 @@
 import s from "./counter.module.css";
 import {Button} from "../../Universalbutton/Button";
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {ReducersType} from "../../redux/store";
-import {setCountAC} from "../../redux/Counter-Reducer";
+import {useAppSelector, useTypedDispatch} from "../../redux/store";
+import {setCountValueTC} from "../../redux/Counter-Reducer";
 
 export const Counter = () => {
 
-    const count = useSelector<ReducersType,number>(state => state.count)
-    const alertText = useSelector<ReducersType,string>(state => state.alertText)
-    const min = useSelector<ReducersType,number>(state => state.min)
-    const max = useSelector<ReducersType,number>(state => state.max)
+    const count = useAppSelector<number>(state => state.counter.count)
+    const alertText = useAppSelector<string>(state => state.counter.alertText)
+    const min = useAppSelector<number>(state => state.counter.min)
+    const max = useAppSelector<number>(state => state.counter.max)
 
-    const dispatch = useDispatch()
+    console.log(count)
+    console.log(max)
+
+    const dispatch = useTypedDispatch()
 
     const resetFunc = () => {
-        dispatch(setCountAC(min))
+        dispatch(setCountValueTC(min))
     }
 
     const counterFunc = () => {
-        dispatch(setCountAC(count + 1))
+        dispatch(setCountValueTC(count + 1))
     }
-
+    console.log('set', count, max)
+    const styledCountValue = `${s.count} ${count === max ? s.red : ''}`
     return (
         alertText ?
         <div className={s.alertText}>
@@ -30,7 +33,7 @@ export const Counter = () => {
         :
         <div className={s.counterContainer}>
             <div className={s.numberContainer}>
-                <div className={s.count + ` ${count === max ? s.red : ''}`}>
+                <div className={styledCountValue}>
                     {count}
                 </div>
             </div>

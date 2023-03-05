@@ -1,33 +1,33 @@
 import React, {ChangeEvent} from 'react'
 import {Button} from "../Universalbutton/Button";
 import s from './settings.module.css'
-import {alertTextAC, setCountAC, setMaxAC, setMinAC} from "../redux/Counter-Reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {ReducersType} from "../redux/store";
-
+import {
+    alertTextAC,
+    setCountToLocalStorageTC,
+    setMaxAC, setMaxValueToLocalStorageTC,
+    setMinAC, setMinValueToLocalStorageTC
+} from "../redux/Counter-Reducer";
+import {useAppSelector, useTypedDispatch} from "../redux/store";
 
 
 export const Setting = () => {
 
-    const min = useSelector<ReducersType,number>(state => state.min)
-    const max = useSelector<ReducersType,number>(state => state.max)
+    const min = useAppSelector<number>(state => state.counter.min)
+    const max = useAppSelector<number>(state => state.counter.max)
 
-    const dispatch = useDispatch()
+    const dispatch = useTypedDispatch()
 
     //тут состояние устанавливается
 
     let setCountToLocal = () => {
-        localStorage.setItem("count", JSON.stringify(min))
+        dispatch(setCountToLocalStorageTC(min))
     }
 
     let setMinValue = () => {
-        localStorage.setItem("min", JSON.stringify(min))
-        dispatch(setMinAC(min))
-        dispatch(setCountAC(min))
+        dispatch(setMinValueToLocalStorageTC(min))
     }
     let setMaxValue = () => {
-        localStorage.setItem("max", JSON.stringify(max))
-        dispatch(setMaxAC(max))
+        dispatch(setMaxValueToLocalStorageTC(max))
     }
 
     let setAllValuesFunc = () => {
