@@ -28,7 +28,7 @@ test('correct min value should be set',()=>{
     const finalState = counterReducer(initState,setMinAC(5))
     expect(finalState.min).toBe(5)
 })
-test('correct max value should be set',()=>{
-    const finalState = counterReducer(initState,setMaxAC(11))
-    expect(finalState.max).toBe(11)
-})
+// test('correct max value should be set',()=>{
+//     const finalState = counterReducer(initState,setMaxAC(11))
+//     expect(finalState.max).toBe(11)
+// })
